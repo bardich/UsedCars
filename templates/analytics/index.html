@@ -1,0 +1,227 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block dashboard_content %}
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-900">Analytiques</h1>
+    <p class="text-gray-600">Statistiques et rapports de performance</p>
+</div>
+
+{# Inquiry Stats Cards #}
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div class="bg-white rounded-xl shadow-md p-4">
+        <div class="flex items-center">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <i class="fas fa-envelope text-blue-600 text-xl"></i>
+            </div>
+            <div class="ml-4">
+                <p class="text-sm text-gray-600">Total demandes</p>
+                <p class="text-2xl font-bold text-gray-900">{{ inquiry_stats.total }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white rounded-xl shadow-md p-4">
+        <div class="flex items-center">
+            <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                <i class="fas fa-clock text-yellow-600 text-xl"></i>
+            </div>
+            <div class="ml-4">
+                <p class="text-sm text-gray-600">Nouveaux</p>
+                <p class="text-2xl font-bold text-gray-900">{{ inquiry_stats.new }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white rounded-xl shadow-md p-4">
+        <div class="flex items-center">
+            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                <i class="fas fa-phone text-green-600 text-xl"></i>
+            </div>
+            <div class="ml-4">
+                <p class="text-sm text-gray-600">Contactés</p>
+                <p class="text-2xl font-bold text-gray-900">{{ inquiry_stats.contacted }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white rounded-xl shadow-md p-4">
+        <div class="flex items-center">
+            <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                <i class="fas fa-check text-gray-600 text-xl"></i>
+            </div>
+            <div class="ml-4">
+                <p class="text-sm text-gray-600">Clôturés</p>
+                <p class="text-2xl font-bold text-gray-900">{{ inquiry_stats.closed }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Charts Section #}
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    {# Inventory Status Chart #}
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <h3 class="text-lg font-medium text-gray-900 mb-4">État du stock</h3>
+        <div class="h-64">
+            <canvas id="inventoryChart"></canvas>
+        </div>
+    </div>
+    
+    {# Popular Brands Chart #}
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <h3 class="text-lg font-medium text-gray-900 mb-4">Marques populaires</h3>
+        <div class="h-64">
+            <canvas id="brandsChart"></canvas>
+        </div>
+    </div>
+</div>
+
+{# Monthly Activity Chart #}
+<div class="mt-6 bg-white rounded-xl shadow-md p-6">
+    <h3 class="text-lg font-medium text-gray-900 mb-4">Activité mensuelle (6 derniers mois)</h3>
+    <div class="h-64">
+        <canvas id="monthlyChart"></canvas>
+    </div>
+</div>
+
+{# Popular Cars Table #}
+<div class="mt-6 bg-white rounded-xl shadow-md p-6">
+    <h3 class="text-lg font-medium text-gray-900 mb-4">Voitures les plus vues</h3>
+    <table class="w-full">
+        <thead class="bg-gray-50">
+            <tr>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Voiture</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Marque</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Prix</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Vues</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+            {% for car in popular_cars %}
+            <tr class="hover:bg-gray-50">
+                <td class="px-4 py-3">
+                    <a href="{{ car.get_absolute_url }}" class="font-medium text-gray-900 hover:text-red-600">{{ car.title }}</a>
+                </td>
+                <td class="px-4 py-3 text-gray-600">{{ car.brand.name }}</td>
+                <td class="px-4 py-3">{{ car.price|floatformat:0 }} MAD</td>
+                <td class="px-4 py-3">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        {{ car.view_count }} vues
+                    </span>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="px-4 py-8 text-center text-gray-500">Aucune donnée disponible</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-6 flex justify-end space-x-4">
+    <a href="{% url 'analytics:reports' %}" class="btn-secondary">
+        <i class="fas fa-file-alt mr-2"></i> Rapports détaillés
+    </a>
+    <a href="{% url 'analytics:inquiries' %}" class="btn-primary">
+        <i class="fas fa-envelope mr-2"></i> Voir les demandes
+    </a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Inventory Status Doughnut Chart
+const inventoryCtx = document.getElementById('inventoryChart').getContext('2d');
+new Chart(inventoryCtx, {
+    type: 'doughnut',
+    data: {
+        labels: {{ inventory_stats.labels|safe }},
+        datasets: [{
+            data: {{ inventory_stats.data }},
+            backgroundColor: {{ inventory_stats.colors|safe }},
+            borderWidth: 2,
+            borderColor: '#fff'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+
+// Popular Brands Bar Chart
+const brandsCtx = document.getElementById('brandsChart').getContext('2d');
+new Chart(brandsCtx, {
+    type: 'bar',
+    data: {
+        labels: [{% for brand in popular_brands %}"{{ brand.name }}",{% endfor %}],
+        datasets: [{
+            label: 'Nombre de voitures',
+            data: [{% for brand in popular_brands %}{{ brand.car_count }},{% endfor %}],
+            backgroundColor: '#DC2626',
+            borderRadius: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: { stepSize: 1 }
+            }
+        }
+    }
+});
+
+// Monthly Activity Line Chart
+const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+new Chart(monthlyCtx, {
+    type: 'line',
+    data: {
+        labels: {{ monthly_data.labels|safe }},
+        datasets: [
+            {
+                label: 'Ajoutées',
+                data: {{ monthly_data.added }},
+                borderColor: '#3B82F6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                tension: 0.4,
+                fill: true
+            },
+            {
+                label: 'Vendues',
+                data: {{ monthly_data.sold }},
+                borderColor: '#22C55E',
+                backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                tension: 0.4,
+                fill: true
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: { stepSize: 1 }
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

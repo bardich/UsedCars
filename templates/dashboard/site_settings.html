@@ -1,0 +1,171 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_content %}
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-900">{{ title }}</h1>
+    <p class="text-gray-600">Gérez les paramètres généraux de votre site</p>
+</div>
+
+<form method="post" enctype="multipart/form-data" class="space-y-8">
+    {% csrf_token %}
+
+    {# Site Identity Section #}
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <i class="fas fa-globe text-blue-600 mr-2"></i>
+            Identité du site
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.site_name.label }}</label>
+                {{ form.site_name }}
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.site_description.label }}</label>
+                {{ form.site_description }}
+                <p class="text-sm text-gray-500 mt-1">Utilisé pour le référencement SEO</p>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.site_logo.label }}</label>
+                {{ form.site_logo }}
+                {% if form.instance.site_logo %}
+                <div class="mt-2 p-2 bg-gray-50 rounded-lg inline-block">
+                    <img src="{{ form.instance.site_logo.url }}" alt="Logo actuel" class="h-12">
+                </div>
+                {% endif %}
+                <p class="text-sm text-gray-500 mt-1">Recommandé: 200x60px</p>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.site_favicon.label }}</label>
+                {{ form.site_favicon }}
+                {% if form.instance.site_favicon %}
+                <div class="mt-2 p-2 bg-gray-50 rounded-lg inline-block">
+                    <img src="{{ form.instance.site_favicon.url }}" alt="Favicon actuel" class="h-8">
+                </div>
+                {% endif %}
+                <p class="text-sm text-gray-500 mt-1">Recommandé: 32x32px</p>
+            </div>
+        </div>
+    </div>
+
+    {# Contact Information Section #}
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <i class="fas fa-address-card text-green-600 mr-2"></i>
+            Informations de contact
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.site_email.label }}</label>
+                {{ form.site_email }}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.site_phone.label }}</label>
+                {{ form.site_phone }}
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.site_address.label }}</label>
+                {{ form.site_address }}
+            </div>
+        </div>
+    </div>
+
+    {# Footer Section #}
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <i class="fas fa-shoe-prints text-gray-600 mr-2"></i>
+            Footer
+        </h2>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.footer_text.label }}</label>
+            {{ form.footer_text }}
+            <p class="text-sm text-gray-500 mt-1">Texte de copyright ou message en bas de page</p>
+        </div>
+    </div>
+
+    {# Social Media Section #}
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <i class="fas fa-share-alt text-purple-600 mr-2"></i>
+            Réseaux sociaux
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <i class="fab fa-facebook text-blue-600 mr-1"></i> {{ form.facebook_url.label }}
+                </label>
+                {{ form.facebook_url }}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <i class="fab fa-instagram text-pink-600 mr-1"></i> {{ form.instagram_url.label }}
+                </label>
+                {{ form.instagram_url }}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <i class="fab fa-twitter text-blue-400 mr-1"></i> {{ form.twitter_url.label }}
+                </label>
+                {{ form.twitter_url }}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <i class="fab fa-youtube text-red-600 mr-1"></i> {{ form.youtube_url.label }}
+                </label>
+                {{ form.youtube_url }}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <i class="fab fa-linkedin text-blue-700 mr-1"></i> {{ form.linkedin_url.label }}
+                </label>
+                {{ form.linkedin_url }}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <i class="fab fa-whatsapp text-green-500 mr-1"></i> {{ form.whatsapp_number.label }}
+                </label>
+                {{ form.whatsapp_number }}
+                <p class="text-sm text-gray-500 mt-1">Format: +212600000000</p>
+            </div>
+        </div>
+    </div>
+
+    {# Theme Section #}
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <i class="fas fa-paint-brush text-orange-600 mr-2"></i>
+            Thème et apparence
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.theme.label }}</label>
+                {{ form.theme }}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.primary_color.label }}</label>
+                <div class="flex items-center space-x-2">
+                    {{ form.primary_color }}
+                    <span class="text-sm text-gray-500">Couleur principale</span>
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.accent_color.label }}</label>
+                <div class="flex items-center space-x-2">
+                    {{ form.accent_color }}
+                    <span class="text-sm text-gray-500">Couleur d'accent</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Submit Buttons #}
+    <div class="flex items-center space-x-4">
+        <button type="submit" class="btn-primary">
+            <i class="fas fa-save mr-2"></i> Enregistrer les modifications
+        </button>
+        <a href="{% url 'dashboard:index' %}" class="btn-secondary">
+            <i class="fas fa-times mr-2"></i> Annuler
+        </a>
+    </div>
+</form>
+{% endblock %}

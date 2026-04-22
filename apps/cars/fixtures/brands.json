@@ -1,0 +1,182 @@
+[
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Mercedes-Benz",
+      "slug": "mercedes-benz",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "BMW",
+      "slug": "bmw",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Audi",
+      "slug": "audi",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Volkswagen",
+      "slug": "volkswagen",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Renault",
+      "slug": "renault",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Peugeot",
+      "slug": "peugeot",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Citroën",
+      "slug": "citroen",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Toyota",
+      "slug": "toyota",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Honda",
+      "slug": "honda",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Hyundai",
+      "slug": "hyundai",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Kia",
+      "slug": "kia",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Ford",
+      "slug": "ford",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Fiat",
+      "slug": "fiat",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Dacia",
+      "slug": "dacia",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Seat",
+      "slug": "seat",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Skoda",
+      "slug": "skoda",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Nissan",
+      "slug": "nissan",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Mazda",
+      "slug": "mazda",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Suzuki",
+      "slug": "suzuki",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.brand",
+    "fields": {
+      "name": "Opel",
+      "slug": "opel",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  }
+]

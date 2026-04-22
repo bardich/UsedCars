@@ -1,0 +1,572 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design System - AutoMaroc</title>
+    {% load tailwind_tags %}
+    {% tailwind_css %}
+    <link rel="stylesheet" href="{% static 'css/variables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        .color-swatch {
+            width: 120px;
+            height: 80px;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-end;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .component-preview {
+            border: 2px dashed #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            background: #f9fafb;
+        }
+        .section-divider {
+            border-top: 2px solid #e5e7eb;
+            margin: 48px 0;
+        }
+        .code-block {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 bg-accent-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-car text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-900">AutoMaroc</h1>
+                        <p class="text-xs text-gray-500">Design System v1.0</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#colors" class="text-gray-600 hover:text-accent-600 font-medium">Couleurs</a>
+                    <a href="#typography" class="text-gray-600 hover:text-accent-600 font-medium">Typographie</a>
+                    <a href="#components" class="text-gray-600 hover:text-accent-600 font-medium">Composants</a>
+                    <a href="#animations" class="text-gray-600 hover:text-accent-600 font-medium">Animations</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Introduction -->
+        <section class="mb-16">
+            <h2 class="text-4xl font-bold mb-4">Design System</h2>
+            <p class="text-lg text-gray-600 max-w-3xl">
+                Ce design system définit les standards visuels et interactifs pour AutoMaroc,
+                une marketplace premium de voitures d'occasion au Maroc.
+            </p>
+        </section>
+
+        <!-- Colors Section -->
+        <section id="colors" class="mb-16">
+            <h3 class="text-2xl font-bold mb-8 flex items-center">
+                <span class="w-8 h-8 bg-accent-600 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fas fa-palette text-white text-sm"></i>
+                </span>
+                Palette de Couleurs
+            </h3>
+
+            <!-- Primary Colors -->
+            <div class="mb-8">
+                <h4 class="text-lg font-semibold mb-4 text-gray-700">Primaires</h4>
+                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                    <div>
+                        <div class="color-swatch bg-primary-900 text-white mb-2">#111827</div>
+                        <p class="text-xs text-gray-600 font-medium">Primary 900</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-primary-800 text-white mb-2">#1E293B</div>
+                        <p class="text-xs text-gray-600 font-medium">Primary 800</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-primary-700 text-white mb-2">#334155</div>
+                        <p class="text-xs text-gray-600 font-medium">Primary 700</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-primary-600 text-white mb-2">#475569</div>
+                        <p class="text-xs text-gray-600 font-medium">Primary 600</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accent Colors -->
+            <div class="mb-8">
+                <h4 class="text-lg font-semibold mb-4 text-gray-700">Accent (Rouge Sport)</h4>
+                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                    <div>
+                        <div class="color-swatch bg-accent-600 text-white mb-2">#DC2626</div>
+                        <p class="text-xs text-gray-600 font-medium">Accent 600</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-accent-500 text-white mb-2">#EF4444</div>
+                        <p class="text-xs text-gray-600 font-medium">Accent 500</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-accent-400 text-white mb-2">#F87171</div>
+                        <p class="text-xs text-gray-600 font-medium">Accent 400</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-accent-100 text-accent-900 mb-2">#FEE2E2</div>
+                        <p class="text-xs text-gray-600 font-medium">Accent 100</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gold Colors -->
+            <div class="mb-8">
+                <h4 class="text-lg font-semibold mb-4 text-gray-700">Or (Premium)</h4>
+                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                    <div>
+                        <div class="color-swatch bg-gold-600 text-white mb-2">#D97706</div>
+                        <p class="text-xs text-gray-600 font-medium">Gold 600</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-gold-500 text-white mb-2">#F59E0B</div>
+                        <p class="text-xs text-gray-600 font-medium">Gold 500</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-gold-400 text-gray-900 mb-2">#FBBF24</div>
+                        <p class="text-xs text-gray-600 font-medium">Gold 400</p>
+                    </div>
+                    <div>
+                        <div class="color-swatch bg-gold-100 text-gold-900 mb-2">#FEF3C7</div>
+                        <p class="text-xs text-gray-600 font-medium">Gold 100</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Colors -->
+            <div class="mb-8">
+                <h4 class="text-lg font-semibold mb-4 text-gray-700">Status des Voitures</h4>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div class="p-4 rounded-lg bg-available-light">
+                        <span class="badge badge-available">Disponible</span>
+                        <p class="text-xs text-gray-600 mt-2">.badge-available</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-reserved-light">
+                        <span class="badge badge-reserved">Réservée</span>
+                        <p class="text-xs text-gray-600 mt-2">.badge-reserved</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-sold-light">
+                        <span class="badge badge-sold">Vendue</span>
+                        <p class="text-xs text-gray-600 mt-2">.badge-sold</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-gold-100">
+                        <span class="badge badge-featured">En Vedette</span>
+                        <p class="text-xs text-gray-600 mt-2">.badge-featured</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Typography Section -->
+        <section id="typography" class="mb-16">
+            <h3 class="text-2xl font-bold mb-8 flex items-center">
+                <span class="w-8 h-8 bg-accent-600 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fas fa-font text-white text-sm"></i>
+                </span>
+                Typographie
+            </h3>
+
+            <div class="space-y-6">
+                <div class="flex items-baseline space-x-4">
+                    <span class="text-sm text-gray-500 w-20">9xl</span>
+                    <h1 class="text-9xl font-bold">Titre Hero</h1>
+                </div>
+                <div class="flex items-baseline space-x-4">
+                    <span class="text-sm text-gray-500 w-20">7xl</span>
+                    <h1 class="text-7xl font-bold">Page Title</h1>
+                </div>
+                <div class="flex items-baseline space-x-4">
+                    <span class="text-sm text-gray-500 w-20">5xl</span>
+                    <h2 class="text-5xl font-bold">Section Heading</h2>
+                </div>
+                <div class="flex items-baseline space-x-4">
+                    <span class="text-sm text-gray-500 w-20">3xl</span>
+                    <h3 class="text-3xl font-semibold">Subsection</h3>
+                </div>
+                <div class="flex items-baseline space-x-4">
+                    <span class="text-sm text-gray-500 w-20">xl</span>
+                    <p class="text-xl">Texte XL - Grand paragraphe</p>
+                </div>
+                <div class="flex items-baseline space-x-4">
+                    <span class="text-sm text-gray-500 w-20">base</span>
+                    <p class="text-base">Texte base - Paragraphe standard pour le contenu principal du site.</p>
+                </div>
+                <div class="flex items-baseline space-x-4">
+                    <span class="text-sm text-gray-500 w-20">sm</span>
+                    <p class="text-sm text-gray-600">Texte SM - Méta-données, légendes, informations secondaires</p>
+                </div>
+                <div class="flex items-baseline space-x-4">
+                    <span class="text-sm text-gray-500 w-20">xs</span>
+                    <p class="text-xs text-gray-500">Texte XS - Labels, tags, très petites infos</p>
+                </div>
+            </div>
+
+            <!-- Font Weights -->
+            <div class="mt-8">
+                <h4 class="text-lg font-semibold mb-4">Graisses</h4>
+                <div class="space-y-2">
+                    <p class="font-thin text-2xl">Thin 100 - Inter</p>
+                    <p class="font-light text-2xl">Light 300 - Inter</p>
+                    <p class="font-normal text-2xl">Normal 400 - Inter</p>
+                    <p class="font-medium text-2xl">Medium 500 - Inter</p>
+                    <p class="font-semibold text-2xl">Semibold 600 - Inter</p>
+                    <p class="font-bold text-2xl">Bold 700 - Inter</p>
+                    <p class="font-extrabold text-2xl">Extrabold 800 - Inter</p>
+                </div>
+            </div>
+
+            <!-- Gradient Text -->
+            <div class="mt-8">
+                <h4 class="text-lg font-semibold mb-4">Texte Dégradé</h4>
+                <p class="text-4xl font-bold text-gradient mb-4">AutoMaroc Premium</p>
+                <p class="text-4xl font-bold text-gradient-gold">Collection Gold</p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Components Section -->
+        <section id="components" class="mb-16">
+            <h3 class="text-2xl font-bold mb-8 flex items-center">
+                <span class="w-8 h-8 bg-accent-600 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fas fa-cube text-white text-sm"></i>
+                </span>
+                Composants
+            </h3>
+
+            <!-- Buttons -->
+            <div class="mb-12">
+                <h4 class="text-lg font-semibold mb-4">Boutons</h4>
+                <div class="component-preview">
+                    <div class="flex flex-wrap gap-4 items-center">
+                        <button class="btn btn-primary">Primary</button>
+                        <button class="btn btn-secondary">Secondary</button>
+                        <button class="btn btn-outline">Outline</button>
+                        <button class="btn btn-ghost">Ghost</button>
+                        <button class="btn btn-primary" disabled>Disabled</button>
+                    </div>
+                    <div class="flex flex-wrap gap-4 items-center mt-4">
+                        <button class="btn btn-primary btn-xs">Extra Small</button>
+                        <button class="btn btn-primary btn-sm">Small</button>
+                        <button class="btn btn-primary">Default</button>
+                        <button class="btn btn-primary btn-lg">Large</button>
+                        <button class="btn btn-primary btn-xl">Extra Large</button>
+                    </div>
+                    <div class="flex flex-wrap gap-4 items-center mt-4">
+                        <button class="btn btn-primary btn-icon">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-phone"></i>
+                            <span>Appeler</span>
+                        </button>
+                        <button class="btn btn-primary btn-ripple">
+                            Effet Ripple
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards -->
+            <div class="mb-12">
+                <h4 class="text-lg font-semibold mb-4">Cartes</h4>
+                <div class="component-preview">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="card">
+                            <div class="aspect-car bg-gray-200 relative">
+                                <div class="absolute inset-0 flex items-center justify-center text-gray-400">
+                                    <i class="fas fa-car text-4xl"></i>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h5 class="font-semibold text-lg">Card Standard</h5>
+                                <p class="text-gray-600 text-sm mt-1">Avec ombre et effet hover</p>
+                            </div>
+                        </div>
+
+                        <div class="card card-flat">
+                            <div class="aspect-car bg-gray-200 relative">
+                                <div class="absolute inset-0 flex items-center justify-center text-gray-400">
+                                    <i class="fas fa-car text-4xl"></i>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h5 class="font-semibold text-lg">Card Flat</h5>
+                                <p class="text-gray-600 text-sm mt-1">Sans ombre, bordure subtile</p>
+                            </div>
+                        </div>
+
+                        <div class="card card-elevated">
+                            <div class="aspect-car bg-gray-200 relative">
+                                <div class="absolute inset-0 flex items-center justify-center text-gray-400">
+                                    <i class="fas fa-car text-4xl"></i>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h5 class="font-semibold text-lg">Card Elevated</h5>
+                                <p class="text-gray-600 text-sm mt-1">Ombre prononcée</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Forms -->
+            <div class="mb-12">
+                <h4 class="text-lg font-semibold mb-4">Formulaires</h4>
+                <div class="component-preview max-w-md">
+                    <div class="form-group">
+                        <label class="form-label">Adresse Email</label>
+                        <input type="email" class="form-input" placeholder="exemple@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Mot de passe</label>
+                        <input type="password" class="form-input" placeholder="••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Marque</label>
+                        <select class="form-input form-select">
+                            <option>Toutes les marques</option>
+                            <option>Mercedes-Benz</option>
+                            <option>BMW</option>
+                            <option>Audi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-input" rows="3" placeholder="Votre message..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <span class="form-error">Ce champ est requis</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Badges -->
+            <div class="mb-12">
+                <h4 class="text-lg font-semibold mb-4">Badges</h4>
+                <div class="component-preview">
+                    <div class="flex flex-wrap gap-3">
+                        <span class="badge badge-available">Disponible</span>
+                        <span class="badge badge-reserved">Réservée</span>
+                        <span class="badge badge-sold">Vendue</span>
+                        <span class="badge badge-featured">En Vedette</span>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mt-4">
+                        <span class="badge badge-available badge-sm">Small</span>
+                        <span class="badge badge-available">Default</span>
+                        <span class="badge badge-available badge-lg">Large</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Glass Effect -->
+            <div class="mb-12">
+                <h4 class="text-lg font-semibold mb-4">Glass Morphism</h4>
+                <div class="component-preview relative overflow-hidden" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div class="flex gap-4">
+                        <div class="glass p-6 rounded-xl">
+                            <h5 class="font-semibold">Glass Effect</h5>
+                            <p class="text-sm opacity-80">Backdrop blur effect</p>
+                        </div>
+                        <div class="glass-dark p-6 rounded-xl text-white">
+                            <h5 class="font-semibold">Glass Dark</h5>
+                            <p class="text-sm opacity-80">For dark backgrounds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Animations Section -->
+        <section id="animations" class="mb-16">
+            <h3 class="text-2xl font-bold mb-8 flex items-center">
+                <span class="w-8 h-8 bg-accent-600 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fas fa-magic text-white text-sm"></i>
+                </span>
+                Animations
+            </h3>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="component-preview text-center">
+                    <div class="w-16 h-16 bg-accent-600 rounded-lg mx-auto mb-2 fade-in"></div>
+                    <p class="text-sm">fade-in</p>
+                </div>
+                <div class="component-preview text-center">
+                    <div class="w-16 h-16 bg-accent-600 rounded-lg mx-auto mb-2 fade-in-up"></div>
+                    <p class="text-sm">fade-in-up</p>
+                </div>
+                <div class="component-preview text-center">
+                    <div class="w-16 h-16 bg-accent-600 rounded-lg mx-auto mb-2 fade-in-down"></div>
+                    <p class="text-sm">fade-in-down</p>
+                </div>
+                <div class="component-preview text-center">
+                    <div class="w-16 h-16 bg-accent-600 rounded-lg mx-auto mb-2 scale-in"></div>
+                    <p class="text-sm">scale-in</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                <div class="component-preview text-center">
+                    <div class="w-16 h-16 bg-gold-500 rounded-lg mx-auto mb-2 pulse-soft"></div>
+                    <p class="text-sm">pulse-soft</p>
+                </div>
+                <div class="component-preview text-center">
+                    <div class="w-16 h-16 bg-gold-500 rounded-lg mx-auto mb-2 float"></div>
+                    <p class="text-sm">float</p>
+                </div>
+                <div class="component-preview text-center">
+                    <div class="w-16 h-16 bg-gold-500 rounded-lg mx-auto mb-2 img-loading"></div>
+                    <p class="text-sm">shimmer (loading)</p>
+                </div>
+                <div class="component-preview text-center">
+                    <div class="w-16 h-16 bg-gold-500 rounded-lg mx-auto mb-2 spinner"></div>
+                    <p class="text-sm">spinner</p>
+                </div>
+            </div>
+
+            <!-- Hover Effects -->
+            <div class="mt-8">
+                <h4 class="text-lg font-semibold mb-4">Effets Hover</h4>
+                <div class="component-preview">
+                    <div class="flex gap-4">
+                        <div class="card p-4 hover-lift cursor-pointer">
+                            <p class="font-medium">hover-lift</p>
+                            <p class="text-sm text-gray-600">Lève au survol</p>
+                        </div>
+                        <div class="card p-4 hover-scale cursor-pointer">
+                            <p class="font-medium">hover-scale</p>
+                            <p class="text-sm text-gray-600">Zoom au survol</p>
+                        </div>
+                        <div class="card card-hover p-4 cursor-pointer">
+                            <p class="font-medium">card-hover</p>
+                            <p class="text-sm text-gray-600">Ombre accentuée</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Usage Examples -->
+        <section class="mb-16">
+            <h3 class="text-2xl font-bold mb-8">Exemples d'Utilisation</h3>
+
+            <div class="space-y-8">
+                <div>
+                    <h4 class="text-lg font-semibold mb-2">Bouton avec icône (Tailwind)</h4>
+                    <div class="code-block">
+&lt;button class="inline-flex items-center gap-2 px-5 py-2.5 bg-accent-600 text-white font-medium rounded-lg hover:bg-accent-700 transition-all"&gt;
+    &lt;i class="fas fa-phone"&gt;&lt;/i&gt;
+    &lt;span&gt;Contacter&lt;/span&gt;
+&lt;/button&gt;
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-2">Carte de voiture (Tailwind)</h4>
+                    <div class="code-block">
+&lt;div class="bg-white rounded-xl shadow-card overflow-hidden hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"&gt;
+    &lt;div class="aspect-car bg-gray-200 relative"&gt;
+        &lt;img src="..." class="w-full h-full object-cover" /&gt;
+        &lt;span class="absolute top-3 right-3 px-2.5 py-1 bg-available-light text-available-dark text-xs font-semibold rounded-full"&gt;
+            Disponible
+        &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="p-4"&gt;
+        &lt;h3 class="font-semibold text-lg line-clamp-1"&gt;Mercedes-Benz C200&lt;/h3&gt;
+        &lt;p class="text-accent-600 font-bold mt-1"&gt;285 000 MAD&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-2">Formulaire (Classes CSS Custom)</h4>
+                    <div class="code-block">
+&lt;div class="form-group"&gt;
+    &lt;label class="form-label"&gt;Email&lt;/label&gt;
+    &lt;input type="email" class="form-input" placeholder="..." /&gt;
+&lt;/div&gt;
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alpine.js Components -->
+        <section class="mb-16">
+            <h3 class="text-2xl font-bold mb-8">Composants Alpine.js</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Dropdown Example -->
+                <div class="component-preview" x-data="{ open: false }">
+                    <h4 class="font-semibold mb-4">Dropdown</h4>
+                    <div class="relative" x-data="dropdown">
+                        <button @click="toggle" class="btn btn-secondary">
+                            <span>Options</span>
+                            <i class="fas fa-chevron-down" :class="{ 'rotate-180': open }"></i>
+                        </button>
+                        <div x-show="open" @click.outside="close" x-transition class="absolute top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-dropdown">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Action 1</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Action 2</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Action 3</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Example -->
+                <div class="component-preview" x-data="modal">
+                    <h4 class="font-semibold mb-4">Modal</h4>
+                    <button @click="toggle" class="btn btn-primary">Ouvrir Modal</button>
+                    <div x-show="open" x-transition.opacity class="fixed inset-0 bg-black/50 z-modal-backdrop flex items-center justify-center p-4" style="display: none;">
+                        <div x-show="open" x-transition.scale class="bg-white rounded-2xl p-6 max-w-md w-full">
+                            <h5 class="text-xl font-bold mb-2">Titre du Modal</h5>
+                            <p class="text-gray-600 mb-4">Contenu du modal...</p>
+                            <div class="flex justify-end gap-2">
+                                <button @click="close" class="btn btn-ghost">Annuler</button>
+                                <button @click="close" class="btn btn-primary">Confirmer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">AutoMaroc Design System v1.0</p>
+            <p class="text-gray-500 text-sm mt-1">Built with Tailwind CSS & Alpine.js</p>
+        </div>
+    </footer>
+</body>
+</html>

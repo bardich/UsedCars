@@ -1,0 +1,110 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_content %}
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-900">Tableau de bord</h1>
+    <p class="text-gray-600">Vue d'ensemble de votre activité</p>
+</div>
+
+{# Stats Cards #}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Total voitures</p>
+                <p class="text-3xl font-bold text-gray-900">{{ total_cars }}</p>
+            </div>
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                <i class="fas fa-car text-blue-600 text-xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Disponibles</p>
+                <p class="text-3xl font-bold text-green-600">{{ available_cars }}</p>
+            </div>
+            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                <i class="fas fa-check-circle text-green-600 text-xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Vendues</p>
+                <p class="text-3xl font-bold text-gray-500">{{ sold_cars }}</p>
+            </div>
+            <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                <i class="fas fa-check-double text-gray-600 text-xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Réservées</p>
+                <p class="text-3xl font-bold text-yellow-600">{{ reserved_cars }}</p>
+            </div>
+            <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                <i class="fas fa-clock text-yellow-600 text-xl"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">En vedette</p>
+                <p class="text-3xl font-bold text-red-600">{{ featured_cars }}</p>
+            </div>
+            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                <i class="fas fa-star text-red-600 text-xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Marques</p>
+                <p class="text-3xl font-bold text-purple-600">{{ total_brands }}</p>
+            </div>
+            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                <i class="fas fa-trademark text-purple-600 text-xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Catégories</p>
+                <p class="text-3xl font-bold text-orange-600">{{ total_categories }}</p>
+            </div>
+            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                <i class="fas fa-tags text-orange-600 text-xl"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Quick Actions #}
+<div class="mt-8 bg-white rounded-xl shadow-md p-6">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Actions rapides</h2>
+    <div class="flex flex-wrap gap-4">
+        <a href="{% url 'dashboard:car_add' %}" class="btn-primary">
+            <i class="fas fa-plus mr-2"></i> Ajouter une voiture
+        </a>
+        <a href="{% url 'cars:list' %}" class="btn-secondary" target="_blank">
+            <i class="fas fa-external-link-alt mr-2"></i> Voir le site
+        </a>
+    </div>
+</div>
+{% endblock %}

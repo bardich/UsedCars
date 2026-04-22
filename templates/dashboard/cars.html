@@ -1,0 +1,156 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_content %}
+<div class="mb-8 flex justify-between items-center">
+    <div>
+        <h1 class="text-2xl font-bold text-gray-900">Gestion des voitures</h1>
+        <p class="text-gray-600">Gérez votre inventaire de véhicules</p>
+    </div>
+    <a href="{% url 'dashboard:car_add' %}" class="btn-primary">
+        <i class="fas fa-plus mr-2"></i> Ajouter
+    </a>
+</div>
+
+{# Search & Filters #}
+<div class="bg-white rounded-xl shadow-md p-4 mb-6">
+    <form method="get" class="flex flex-wrap gap-4 items-end">
+        <div class="flex-1 min-w-[200px]">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Rechercher</label>
+            <input type="text" name="search" value="{{ request.GET.search }}" 
+                   class="input-field" placeholder="Marque, modèle...">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Statut</label>
+            <select name="status" class="input-field">
+                <option value="">Tous</option>
+                <option value="available" {% if request.GET.status == 'available' %}selected{% endif %}>Disponible</option>
+                <option value="reserved" {% if request.GET.status == 'reserved' %}selected{% endif %}>Réservée</option>
+                <option value="sold" {% if request.GET.status == 'sold' %}selected{% endif %}>Vendue</option>
+            </select>
+        </div>
+        <div class="flex gap-2">
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-search mr-2"></i> Filtrer
+            </button>
+            <a href="{% url 'dashboard:cars' %}" class="btn-secondary px-4">
+                <i class="fas fa-undo"></i>
+            </a>
+        </div>
+    </form>
+</div>
+
+{# Cars Table #}
+<div class="bg-white rounded-xl shadow-md overflow-hidden">
+    <table class="w-full">
+        <thead class="bg-gray-50">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Voiture</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Prix</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Statut</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">En vedette</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Publiée</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+            {% for car in cars %}
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4">
+                    <div class="flex items-center">
+                        {% if car.get_main_image %}
+                        <img src="{{ car.get_main_image.image.url }}" alt="" class="w-12 h-12 rounded-lg object-cover mr-3">
+                        {% else %}
+                        <div class="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-car text-gray-400"></i>
+                        </div>
+                        {% endif %}
+                        <div>
+                            <p class="font-medium text-gray-900">{{ car }}</p>
+                            <p class="text-sm text-gray-500">{{ car.year }} - {{ car.mileage|floatformat:0 }} km</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="px-6 py-4">
+                    <span class="font-medium">{{ car.price|floatformat:0 }} MAD</span>
+                </td>
+                <td class="px-6 py-4">
+                    <span class="px-3 py-1 rounded-full text-xs font-medium
+                        {% if car.is_available %}bg-green-100 text-green-800
+                        {% elif car.is_reserved %}bg-yellow-100 text-yellow-800
+                        {% else %}bg-gray-100 text-gray-800{% endif %}">
+                        {{ car.get_status_display }}
+                    </span>
+                </td>
+                <td class="px-6 py-4">
+                    {% if car.featured %}
+                    <i class="fas fa-star text-yellow-500"></i>
+                    {% else %}
+                    <i class="far fa-star text-gray-300"></i>
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4">
+                    {% if car.published %}
+                    <i class="fas fa-eye text-green-500"></i>
+                    {% else %}
+                    <i class="fas fa-eye-slash text-gray-400"></i>
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4">
+                    <div class="flex space-x-2">
+                        <a href="{{ car.get_absolute_url }}" target="_blank" class="text-blue-600 hover:text-blue-800" title="Voir">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a href="{% url 'dashboard:car_edit' car.pk %}" class="text-green-600 hover:text-green-800" title="Modifier">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="{% url 'dashboard:car_delete' car.pk %}" class="text-red-600 hover:text-red-800" title="Supprimer">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+                    <i class="fas fa-car text-4xl mb-4 text-gray-300"></i>
+                    <p>Aucune voiture trouvée</p>
+                    <a href="{% url 'dashboard:car_add' %}" class="btn-primary mt-4 inline-block">
+                        <i class="fas fa-plus mr-2"></i> Ajouter une voiture
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{# Pagination #}
+{% if is_paginated %}
+<div class="mt-6 flex justify-center">
+    <nav class="flex space-x-2">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" 
+           class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        {% endif %}
+        
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <span class="px-4 py-2 bg-red-600 text-white rounded-lg">{{ num }}</span>
+        {% else %}
+        <a href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" 
+           class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" 
+           class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        {% endif %}
+    </nav>
+</div>
+{% endif %}
+{% endblock %}

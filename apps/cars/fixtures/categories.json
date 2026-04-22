@@ -1,0 +1,122 @@
+[
+  {
+    "model": "cars.category",
+    "fields": {
+      "name": "Berline",
+      "slug": "berline",
+      "description": "Voitures berlines confortables et élégantes",
+      "is_active": true,
+      "order": 1,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.category",
+    "fields": {
+      "name": "SUV & 4x4",
+      "slug": "suv-4x4",
+      "description": "Véhicules utilitaires sport et tout-terrain",
+      "is_active": true,
+      "order": 2,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.category",
+    "fields": {
+      "name": "Citadine",
+      "slug": "citadine",
+      "description": "Voitures compactes pour la ville",
+      "is_active": true,
+      "order": 3,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.category",
+    "fields": {
+      "name": "Break",
+      "slug": "break",
+      "description": "Voitures familiales avec grand coffre",
+      "is_active": true,
+      "order": 4,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.category",
+    "fields": {
+      "name": "Coupé",
+      "slug": "coupe",
+      "description": "Voitures sportives à deux portes",
+      "is_active": true,
+      "order": 5,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.category",
+    "fields": {
+      "name": "Monospace",
+      "slug": "monospace",
+      "description": "Véhicules familiaux spacieux",
+      "is_active": true,
+      "order": 6,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.category",
+    "fields": {
+      "name": "Utilitaire",
+      "slug": "utilitaire",
+      "description": "Véhicules utilitaires pour professionnels",
+      "is_active": true,
+      "order": 7,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.category",
+    "fields": {
+      "name": "Pickup",
+      "slug": "pickup",
+      "description": "Véhicules pickup pour le transport",
+      "is_active": true,
+      "order": 8,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.category",
+    "fields": {
+      "name": "Cabriolet",
+      "slug": "cabriolet",
+      "description": "Voitures décapotables",
+      "is_active": true,
+      "order": 9,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.category",
+    "fields": {
+      "name": "Hybride & Électrique",
+      "slug": "hybride-electrique",
+      "description": "Véhicules écologiques",
+      "is_active": true,
+      "order": 10,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  }
+]

@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ SITE_NAME }} - Voitures d'occasion au Maroc{% endblock %}
+
+{% block content %}
+{# Hero Section #}
+<section class="relative bg-gray-900 min-h-[600px] flex items-center">
+    <div class="absolute inset-0">
+        <img src="{% static 'images/hero-car.jpg' %}" alt="Luxury Car" 
+             class="w-full h-full object-cover opacity-40"
+             onerror="this.src='https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'">
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+            Trouvez votre <span class="text-red-500">voiture idéale</span>
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            Large sélection de véhicules d'occasion vérifiés et garantis au meilleur prix au Maroc.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'cars:list' %}" class="btn-primary text-lg">
+                <i class="fas fa-search mr-2"></i>
+                Explorer les voitures
+            </a>
+            <a href="tel:+212600000000" class="btn-secondary text-lg">
+                <i class="fas fa-phone mr-2"></i>
+                Nous appeler
+            </a>
+        </div>
+    </div>
+</section>
+
+{# Search Section #}
+<section class="py-8 bg-white shadow-lg -mt-8 mx-4 md:mx-8 lg:mx-16 rounded-xl relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <form action="{% url 'cars:list' %}" method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Marque</label>
+                <select name="brand" class="input-field">
+                    <option value="">Toutes les marques</option>
+                    {% for brand in brands %}
+                    <option value="{{ brand.slug }}">{{ brand.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Prix max (MAD)</label>
+                <select name="price_max" class="input-field">
+                    <option value="">Prix indifférent</option>
+                    <option value="100000">100 000 MAD</option>
+                    <option value="200000">200 000 MAD</option>
+                    <option value="300000">300 000 MAD</option>
+                    <option value="500000">500 000 MAD</option>
+                    <option value="1000000">1 000 000+ MAD</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Année min</label>
+                <select name="year_min" class="input-field">
+                    <option value="">Toutes les années</option>
+                    {% for year in years %}
+                    <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="flex items-end">
+                <button type="submit" class="btn-primary w-full">
+                    <i class="fas fa-search mr-2"></i>
+                    Rechercher
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+{# Featured Cars Section #}
+<section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="section-title">Voitures en vedette</h2>
+            <p class="section-subtitle">Notre sélection des meilleures offres du moment</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for car in featured_cars %}
+            <div class="card group">
+                <div class="relative overflow-hidden">
+                    <img src="{{ car.get_main_image.image.url }}" alt="{{ car.title }}"
+                         class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-500"
+                         onerror="this.src='https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                            En vedette
+                        </span>
+                    </div>
+                    {% if car.is_sold %}
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <span class="text-white text-2xl font-bold">VENDU</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">{{ car }}</h3>
+                    <div class="flex items-center text-gray-600 text-sm mb-4 space-x-4">
+                        <span><i class="fas fa-calendar mr-1"></i> {{ car.year }}</span>
+                        <span><i class="fas fa-tachometer-alt mr-1"></i> {{ car.mileage|default:"N/A" }} km</span>
+                        <span><i class="fas fa-gas-pump mr-1"></i> {{ car.get_fuel_type_display }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-red-600">{{ car.price|floatformat:0 }} MAD</span>
+                        <a href="{{ car.get_absolute_url }}" class="text-gray-600 hover:text-red-600 transition">
+                            Voir détails <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-3 text-center py-12">
+                <p class="text-gray-500">Aucune voiture en vedette pour le moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="{% url 'cars:list' %}" class="btn-secondary inline-block">
+                Voir toutes les voitures
+            </a>
+        </div>
+    </div>
+</section>
+
+{# Why Choose Us Section #}
+<section class="py-16 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="section-title">Pourquoi nous choisir ?</h2>
+            <p class="section-subtitle">Des avantages exclusifs pour votre tranquillité</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center p-6 bg-white rounded-xl shadow-md">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-shield-alt text-red-600 text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Garantie</h3>
+                <p class="text-gray-600">Tous nos véhicules sont vérifiés et garantis</p>
+            </div>
+            
+            <div class="text-center p-6 bg-white rounded-xl shadow-md">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-euro-sign text-red-600 text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Meilleur prix</h3>
+                <p class="text-gray-600">Des prix compétitifs et transparents</p>
+            </div>
+            
+            <div class="text-center p-6 bg-white rounded-xl shadow-md">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-handshake text-red-600 text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Confiance</h3>
+                <p class="text-gray-600">Plusieurs années d'expérience au Maroc</p>
+            </div>
+            
+            <div class="text-center p-6 bg-white rounded-xl shadow-md">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-headset text-red-600 text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Service client</h3>
+                <p class="text-gray-600">Support disponible 7j/7 pour vous accompagner</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Latest Cars Section #}
+<section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="section-title">Dernières arrivées</h2>
+            <p class="section-subtitle">Nos nouvelles voitures disponibles</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for car in latest_cars %}
+            <div class="card">
+                <div class="relative overflow-hidden">
+                    <img src="{{ car.get_main_image.image.url }}" alt="{{ car.title }}"
+                         class="w-full h-48 object-cover"
+                         onerror="this.src='https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                    {% if car.is_sold %}
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <span class="text-white text-xl font-bold">VENDU</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="p-4">
+                    <h3 class="font-bold text-gray-900 mb-1 truncate">{{ car }}</h3>
+                    <p class="text-sm text-gray-600 mb-2">{{ car.year }} • {{ car.mileage|floatformat:0 }} km</p>
+                    <p class="text-lg font-bold text-red-600">{{ car.price|floatformat:0 }} MAD</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-4 text-center py-12">
+                <p class="text-gray-500">Aucune voiture disponible pour le moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# CTA Section #}
+<section class="py-16 bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+            Vous ne trouvez pas votre voiture ?
+        </h2>
+        <p class="text-xl text-gray-400 mb-8">
+            Contactez-nous et nous vous aiderons à trouver le véhicule de vos rêves.
+        </p>
+        <a href="https://wa.me/{{ WHATSAPP_NUMBER|cut:'+' }}" target="_blank" class="btn-primary text-lg">
+            <i class="fab fa-whatsapp mr-2"></i>
+            Discuter sur WhatsApp
+        </a>
+    </div>
+</section>
+{% endblock %}

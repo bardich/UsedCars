@@ -1,0 +1,168 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_content %}
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-900">{{ title }}</h1>
+    <p class="text-gray-600">
+        {% if car %}
+        Modification de {{ car }}
+        {% else %}
+        Ajouter une nouvelle voiture à l'inventaire
+        {% endif %}
+    </p>
+</div>
+
+<div class="bg-white rounded-xl shadow-md p-6">
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+        
+        {# Basic Info #}
+        <div class="border-b border-gray-200 pb-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Informations de base</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Titre</label>
+                    {{ form.title }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Slug (URL)</label>
+                    {{ form.slug }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Marque</label>
+                    {{ form.brand }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Catégorie</label>
+                    {{ form.category }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Modèle</label>
+                    {{ form.model_name }}
+                </div>
+            </div>
+        </div>
+        
+        {# Specifications #}
+        <div class="border-b border-gray-200 pb-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Spécifications techniques</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Année</label>
+                    {{ form.year }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Kilométrage</label>
+                    {{ form.mileage }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Carburant</label>
+                    {{ form.fuel_type }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Transmission</label>
+                    {{ form.transmission }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Puissance (ch)</label>
+                    {{ form.horsepower }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Cylindrée (L)</label>
+                    {{ form.engine_size }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Transmission</label>
+                    {{ form.drivetrain }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Couleur</label>
+                    {{ form.color }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Portes</label>
+                    {{ form.doors }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Places</label>
+                    {{ form.seats }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">État</label>
+                    {{ form.condition }}
+                </div>
+            </div>
+        </div>
+        
+        {# Pricing & Status #}
+        <div class="border-b border-gray-200 pb-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Prix et statut</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Prix (MAD)</label>
+                    {{ form.price }}
+                </div>
+                <div class="flex items-center space-x-6">
+                    <label class="flex items-center">
+                        {{ form.negotiable_price }}
+                        <span class="ml-2 text-sm text-gray-700">Prix négociable</span>
+                    </label>
+                    <label class="flex items-center">
+                        {{ form.featured }}
+                        <span class="ml-2 text-sm text-gray-700">En vedette</span>
+                    </label>
+                    <label class="flex items-center">
+                        {{ form.published }}
+                        <span class="ml-2 text-sm text-gray-700">Publiée</span>
+                    </label>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Statut</label>
+                    {{ form.status }}
+                </div>
+            </div>
+        </div>
+        
+        {# Description & Features #}
+        <div class="border-b border-gray-200 pb-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Description et équipements</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    {{ form.description }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Équipements</label>
+                    {{ form.features }}
+                </div>
+            </div>
+        </div>
+        
+        {# Registration Info #}
+        <div class="pb-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Informations d'immatriculation</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">N° de série (VIN)</label>
+                    {{ form.vin_number }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Ville d'immatriculation</label>
+                    {{ form.registration_city }}
+                </div>
+            </div>
+        </div>
+        
+        {# Actions #}
+        <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
+            <a href="{% url 'dashboard:cars' %}" class="btn-secondary">
+                Annuler
+            </a>
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-save mr-2"></i>
+                Enregistrer
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

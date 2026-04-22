@@ -1,0 +1,299 @@
+[
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Climatisation",
+      "icon": "fas fa-snowflake",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Climatisation automatique",
+      "icon": "fas fa-thermometer-half",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Sièges en cuir",
+      "icon": "fas fa-chair",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Sièges chauffants",
+      "icon": "fas fa-fire",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "GPS Navigation",
+      "icon": "fas fa-map-marker-alt",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Caméra de recul",
+      "icon": "fas fa-video",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Bluetooth",
+      "icon": "fab fa-bluetooth-b",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Toit ouvrant",
+      "icon": "fas fa-sun",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Toit panoramique",
+      "icon": "fas fa-cloud-sun",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Jantes alliage",
+      "icon": "fas fa-dharmachakra",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Régulateur de vitesse",
+      "icon": "fas fa-tachometer-alt",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Limiteur de vitesse",
+      "icon": "fas fa-gauge-high",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Aide au stationnement",
+      "icon": "fas fa-parking",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Capteurs de pluie",
+      "icon": "fas fa-cloud-rain",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Phares automatiques",
+      "icon": "fas fa-lightbulb",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Phares LED",
+      "icon": "fas fa-bolt",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Vitres électriques",
+      "icon": "fas fa-window-maximize",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Rétroviseurs électriques",
+      "icon": "fas fa-car-side",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Rétroviseurs dégivrants",
+      "icon": "fas fa-wind",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "ABS",
+      "icon": "fas fa-circle-exclamation",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "ESP",
+      "icon": "fas fa-road",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Airbags",
+      "icon": "fas fa-shield-alt",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Isofix",
+      "icon": "fas fa-child",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Démarrage sans clé",
+      "icon": "fas fa-key",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Démarrage à bouton",
+      "icon": "fas fa-power-off",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Volant multifonction",
+      "icon": "fas fa-steering-wheel",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Volant cuir",
+      "icon": "fas fa-circle-notch",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Ordinateur de bord",
+      "icon": "fas fa-desktop",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Alerte de fatigue",
+      "icon": "fas fa-bed",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Reconnaissance des panneaux",
+      "icon": "fas fa-sign",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Attelage",
+      "icon": "fas fa-trailer",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Barres de toit",
+      "icon": "fas fa-grip-lines",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "cars.feature",
+    "fields": {
+      "name": "Vitres teintées",
+      "icon": "fas fa-sunglasses",
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  }
+]

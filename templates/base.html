@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    {# SEO Meta Tags #}
+    <title>{% block title %}{{ title|default:'' }} | {{ SITE_NAME }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{{ SITE_DESCRIPTION|default:'' }} {% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}voitures occasion, voitures maroc, achat voiture, vente voiture, automobile maroc{% endblock %}">
+    
+    {# Open Graph #}
+    <meta property="og:title" content="{% block og_title %}{{ title|default:SITE_NAME }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Votre marketplace de voitures d'occasion au Maroc{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{% block og_image %}{{ SITE_URL }}{% static 'images/og-image.jpg' %}{% endblock %}">
+    
+    {# Favicon #}
+    {% if SITE_FAVICON %}
+    <link rel="icon" type="image/png" href="{{ SITE_FAVICON }}">
+    {% else %}
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    {% endif %}
+    
+    {# Tailwind CSS #}
+    {% load static tailwind_tags %}
+    {% tailwind_css %}
+    
+    {# Alpine.js #}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    {# Font Awesome #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    {# Google Fonts #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    {# CSS Variables & Design System #}
+    <link rel="stylesheet" href="{% static 'css/variables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased" x-data="{ mobileMenuOpen: false }">
+    
+    {% block header %}
+    {# Header #}
+    {% include 'includes/header.html' %}
+    {% endblock %}
+    
+    {# Main Content #}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    {% block footer %}
+    {# Footer #}
+    {% include 'includes/footer.html' %}
+    {% endblock %}
+    
+    {% block whatsapp %}
+    {# WhatsApp Button #}
+    {% include 'includes/whatsapp_button.html' %}
+    {% endblock %}
+    
+    {# Messages/Alerts #}
+    {% if messages %}
+    <div class="fixed top-4 right-4 z-50 space-y-2" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)">
+        {% for message in messages %}
+        <div class="px-4 py-3 rounded-lg shadow-lg text-white {% if message.tags == 'success' %}bg-green-500{% elif message.tags == 'error' %}bg-red-500{% elif message.tags == 'warning' %}bg-yellow-500{% else %}bg-blue-500{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% block extra_js %}{% endblock %}
+    
+    {# Custom JavaScript #}
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

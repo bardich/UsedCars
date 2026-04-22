@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ car }} - {{ car.price|floatformat:0 }} MAD{% endblock %}
+{% block meta_description %}{{ car.brand.name }} {{ car.model_name }} {{ car.year }} - {{ car.mileage }} km - {{ car.price|floatformat:0 }} MAD. {{ car.description|truncatechars:150 }}{% endblock %}
+{% block og_image %}{% if car.get_main_image %}{{ SITE_URL }}{{ car.get_main_image.image.url }}{% endif %}{% endblock %}
+
+{% block content %}
+<section class="bg-gray-100 py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {# Breadcrumbs #}
+        <nav class="flex items-center text-sm text-gray-600 mb-4">
+            <a href="{% url 'core:home' %}" class="hover:text-red-600">Accueil</a>
+            <span class="mx-2">/</span>
+            <a href="{% url 'cars:list' %}" class="hover:text-red-600">Voitures</a>
+            <span class="mx-2">/</span>
+            <span class="text-gray-900">{{ car }}</span>
+        </nav>
+    </div>
+</section>
+
+<section class="pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {# Left Column - Images #}
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden" x-data="{ current: 0 }">
+                    {# Main Image #}
+                    <div class="relative aspect-video">
+                        {% if car.get_main_image %}
+                        <img src="{{ car.get_main_image.image.url }}" 
+                             alt="{{ car.title }}"
+                             class="w-full h-full object-cover">
+                        {% else %}
+                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                             alt="{{ car.title }}"
+                             class="w-full h-full object-cover">
+                        {% endif %}
+                        
+                        {% if car.is_sold %}
+                        <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center">
+                            <span class="text-white text-4xl font-bold">VENDU</span>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="absolute top-4 right-4">
+                            <span class="{% if car.is_available %}bg-green-500{% elif car.is_reserved %}bg-yellow-500{% else %}bg-gray-500{% endif %} text-white px-4 py-2 rounded-lg font-medium">
+                                {{ car.get_status_display }}
+                            </span>
+                        </div>
+                        
+                        {% if car.featured %}
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-red-500 text-white px-4 py-2 rounded-lg font-medium">En vedette</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    {# Thumbnails #}
+                    {% if car.images.count > 1 %}
+                    <div class="flex gap-2 p-4 overflow-x-auto">
+                        {% for image in car.images.all %}
+                        <button class="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 {% if forloop.first %}border-red-500{% else %}border-transparent{% endif %}">
+                            <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="w-full h-full object-cover">
+                        </button>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                {# Description #}
+                <div class="bg-white rounded-xl shadow-md p-6 mt-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">Description</h2>
+                    <p class="text-gray-600 leading-relaxed">{{ car.description|linebreaks }}</p>
+                </div>
+                
+                {# Features #}
+                {% if car.features.all %}
+                <div class="bg-white rounded-xl shadow-md p-6 mt-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">Équipements</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {% for feature in car.features.all %}
+                        <div class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            {{ feature.name }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                {# Similar Cars #}
+                {% if similar_cars %}
+                <div class="mt-8">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">Voitures similaires</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {% for similar in similar_cars %}
+                        <a href="{{ similar.get_absolute_url }}" class="card flex hover:shadow-lg transition">
+                            <div class="w-32 flex-shrink-0">
+                                <img src="{% if similar.get_main_image %}{{ similar.get_main_image.image.url }}{% else %}/static/images/car-placeholder.jpg{% endif %}" 
+                                     alt="{{ similar.title }}"
+                                     class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4 flex-1">
+                                <h3 class="font-bold text-gray-900 mb-1">{{ similar }}</h3>
+                                <p class="text-sm text-gray-600">{{ similar.year }} • {{ similar.mileage|floatformat:0 }} km</p>
+                                <p class="text-red-600 font-bold mt-2">{{ similar.price|floatformat:0 }} MAD</p>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            {# Right Column - Info & Contact #}
+            <div class="lg:col-span-1">
+                {# Price Card #}
+                <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600 mb-2">Prix</p>
+                        <p class="text-3xl font-bold text-red-600">{{ car.price|floatformat:0 }} MAD</p>
+                        {% if car.negotiable_price %}
+                        <span class="text-green-600 text-sm"><i class="fas fa-handshake mr-1"></i> Prix négociable</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                {# Specifications #}
+                <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4">Caractéristiques</h2>
+                    <table class="w-full">
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="py-3 text-gray-600">Marque</td>
+                                <td class="py-3 text-right font-medium">{{ car.brand.name }}</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-gray-600">Modèle</td>
+                                <td class="py-3 text-right font-medium">{{ car.model_name }}</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-gray-600">Année</td>
+                                <td class="py-3 text-right font-medium">{{ car.year }}</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-gray-600">Kilométrage</td>
+                                <td class="py-3 text-right font-medium">{{ car.mileage|floatformat:0 }} km</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-gray-600">Carburant</td>
+                                <td class="py-3 text-right font-medium">{{ car.get_fuel_type_display }}</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-gray-600">Transmission</td>
+                                <td class="py-3 text-right font-medium">{{ car.get_transmission_display }}</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-gray-600">Puissance</td>
+                                <td class="py-3 text-right font-medium">{% if car.horsepower %}{{ car.horsepower }} ch{% else %}N/A{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-gray-600">Cylindrée</td>
+                                <td class="py-3 text-right font-medium">{% if car.engine_size %}{{ car.engine_size }} L{% else %}N/A{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-gray-600">Couleur</td>
+                                <td class="py-3 text-right font-medium">{% if car.color %}{{ car.color }}{% else %}N/A{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-gray-600">Portes</td>
+                                <td class="py-3 text-right font-medium">{{ car.doors }}</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-gray-600">Places</td>
+                                <td class="py-3 text-right font-medium">{{ car.seats }}</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-gray-600">État</td>
+                                <td class="py-3 text-right font-medium">{{ car.get_condition_display }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                {# Contact Card #}
+                <div class="bg-red-600 rounded-xl shadow-md p-6 text-white">
+                    <h2 class="text-lg font-bold mb-4">Intéressé par cette voiture ?</h2>
+                    <p class="mb-4 text-red-100">Contactez-nous dès maintenant pour plus d'informations ou pour organiser un essai.</p>
+                    
+                    <a href="https://wa.me/{{ WHATSAPP_NUMBER|cut:'+' }}?text=Bonjour!%20Je%20suis%20intéressé%20par%20la%20{{ car.brand.name|urlencode }}%20{{ car.model_name|urlencode }}%20({{ car.year }}).%20Réf:%20{{ car.id }}" 
+                       target="_blank"
+                       class="block w-full bg-green-500 hover:bg-green-600 text-white text-center py-3 rounded-lg font-medium transition mb-3">
+                        <i class="fab fa-whatsapp mr-2"></i> WhatsApp
+                    </a>
+                    
+                    <a href="tel:+212600000000" class="block w-full bg-white text-red-600 text-center py-3 rounded-lg font-medium hover:bg-gray-100 transition">
+                        <i class="fas fa-phone mr-2"></i> Appeler
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
