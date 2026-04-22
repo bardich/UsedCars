@@ -24,15 +24,18 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {# Left Column - Images #}
             <div class="lg:col-span-2">
-                <div class="bg-white rounded-xl shadow-md overflow-hidden" x-data="{ current: 0 }">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden" x-data="{ current: 0, images: [{% for img in car.images.all %}'{{ img.image.url }}'{% if not forloop.last %}, {% endif %}{% endfor %}] }">
                     {# Main Image #}
                     <div class="relative aspect-video">
-                        {% if car.get_main_image %}
-                        <img src="{{ car.get_main_image.image.url }}" 
-                             alt="{{ car.title }}"
-                             class="w-full h-full object-cover">
+                        {% if car.images.exists %}
+                        <template x-if="images.length > 0">
+                            <img :src="images[current]"
+                                 alt="{{ car.title }}"
+                                 class="w-full h-full object-cover cursor-pointer"
+                                 @click="current = (current + 1) % images.length">
+                        </template>
                         {% else %}
-                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
                              alt="{{ car.title }}"
                              class="w-full h-full object-cover">
                         {% endif %}
@@ -60,7 +63,9 @@
                     {% if car.images.count > 1 %}
                     <div class="flex gap-2 p-4 overflow-x-auto">
                         {% for image in car.images.all %}
-                        <button class="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 {% if forloop.first %}border-red-500{% else %}border-transparent{% endif %}">
+                        <button @click="current = {{ forloop.counter0 }}"
+                                :class="{ 'border-red-500': current === {{ forloop.counter0 }}, 'border-transparent': current !== {{ forloop.counter0 }} }"
+                                class="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 hover:border-gray-300 transition cursor-pointer">
                             <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="w-full h-full object-cover">
                         </button>
                         {% endfor %}

@@ -137,6 +137,82 @@
                 </div>
             </div>
         </div>
+
+        {# Images #}
+        <div class="border-b border-gray-200 pb-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-900">Images du véhicule</h3>
+                <span class="text-sm text-gray-500">
+                    {% if car %}{{ car.images.count }} images existantes - {% endif %}Max 15 images
+                </span>
+            </div>
+
+            {# Existing Images (for edit mode) #}
+            {% if car and car.images.exists %}
+            <div class="mb-6">
+                <h4 class="text-sm font-medium text-gray-700 mb-3">Images existantes</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    {% for image in car.images.all %}
+                    <div class="relative group">
+                        <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="w-full h-24 object-cover rounded-lg">
+                        {% if image.is_featured %}
+                        <span class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">Principale</span>
+                        {% endif %}
+                        <span class="absolute bottom-2 right-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">#{{ image.order }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {# Image Formset #}
+            <div>
+                <h4 class="text-sm font-medium text-gray-700 mb-3">Ajouter / Modifier des images (jusqu'à 6 à la fois)</h4>
+                {{ image_formset.management_form }}
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {% for form in image_formset %}
+                    <div class="p-4 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 hover:border-gray-400 transition">
+                        {{ form.id }}
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Image {{ forloop.counter }}</label>
+                                {{ form.image }}
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-500 mb-1">Texte alternatif</label>
+                                {{ form.alt_text }}
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <label class="flex items-center text-sm">
+                                    {{ form.is_featured }}
+                                    <span class="ml-2">Principale</span>
+                                </label>
+                                {% if form.instance.pk %}
+                                <label class="flex items-center text-red-600 text-sm">
+                                    {{ form.DELETE }}
+                                    <span class="ml-1">Suppr.</span>
+                                </label>
+                                {% endif %}
+                            </div>
+                            {{ form.order.as_hidden }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% if image_formset.non_form_errors %}
+                <div class="text-red-600 text-sm mt-4">
+                    {{ image_formset.non_form_errors }}
+                </div>
+                {% endif %}
+
+                <p class="text-sm text-gray-500 mt-4">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Astuce: Pour ajouter plus de 6 images, sauvegardez puis ajoutez à nouveau.
+                </p>
+            </div>
+        </div>
         
         {# Registration Info #}
         <div class="pb-6">

@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.db.models import Count, Q
 from django.contrib import messages
 from apps.cars.models import Car, Category, Brand
-from apps.cars.forms import CarForm, CategoryForm, BrandForm
+from apps.cars.forms import CarForm, CategoryForm, BrandForm, CarImageFormSet
 from apps.core.models import SiteSettings
 from apps.core.forms import SiteSettingsForm
 
@@ -68,7 +68,7 @@ class CarManagementView(AdminRequiredMixin, ListView):
 
 
 class CarAddView(AdminRequiredMixin, CreateView):
-    """Add new car view"""
+    """Add new car view with image upload"""
     model = Car
     template_name = 'dashboard/car_form.html'
     form_class = CarForm
@@ -77,15 +77,28 @@ class CarAddView(AdminRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Ajouter une voiture'
+        if self.request.POST:
+            context['image_formset'] = CarImageFormSet(self.request.POST, self.request.FILES)
+        else:
+            context['image_formset'] = CarImageFormSet()
         return context
 
     def form_valid(self, form):
-        messages.success(self.request, f'La voiture "{form.instance}" a été créée avec succès.')
-        return super().form_valid(form)
+        context = self.get_context_data()
+        image_formset = context['image_formset']
+
+        if form.is_valid() and image_formset.is_valid():
+            self.object = form.save()
+            image_formset.instance = self.object
+            image_formset.save()
+            messages.success(self.request, f'La voiture "{form.instance}" a été créée avec succès.')
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
 
 
 class CarEditView(AdminRequiredMixin, UpdateView):
-    """Edit car view"""
+    """Edit car view with image management"""
     model = Car
     template_name = 'dashboard/car_form.html'
     form_class = CarForm
@@ -94,11 +107,24 @@ class CarEditView(AdminRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = f'Modifier: {self.object}'
+        if self.request.POST:
+            context['image_formset'] = CarImageFormSet(self.request.POST, self.request.FILES, instance=self.object)
+        else:
+            context['image_formset'] = CarImageFormSet(instance=self.object)
+        context['car'] = self.object
         return context
 
     def form_valid(self, form):
-        messages.success(self.request, f'La voiture "{form.instance}" a été mise à jour avec succès.')
-        return super().form_valid(form)
+        context = self.get_context_data()
+        image_formset = context['image_formset']
+
+        if form.is_valid() and image_formset.is_valid():
+            form.save()
+            image_formset.save()
+            messages.success(self.request, f'La voiture "{form.instance}" a été mise à jour avec succès.')
+            return super().form_valid(form)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
 
 
 class CarDeleteView(AdminRequiredMixin, DeleteView):

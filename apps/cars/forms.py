@@ -142,10 +142,11 @@ class CarImageInlineFormSet(forms.BaseInlineFormSet):
 
 # Create inline formset factory
 CarImageFormSet = forms.inlineformset_factory(
-    Car, 
-    CarImage, 
+    Car,
+    CarImage,
     form=CarImageForm,
     formset=CarImageInlineFormSet,
-    extra=3,  # Show 3 empty forms
+    extra=6,  # Show 6 empty forms for batch upload
+    max_num=15,  # Maximum 15 images per car
     can_delete=True
 )
